@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Prompt Veo 3 - Konsisten</title>
+    <title>Generator Prompt Veo 3 - Karakter, Lokasi, dan suara Konsisten</title>
     <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Memuat Google Fonts: Inter -->
@@ -35,8 +35,8 @@
         
         <!-- Header Aplikasi -->
         <header class="text-center mb-8">
-            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Generator Prompt Veo 3 konsisten</h1>
-            <p class="text-md sm:text-lg text-gray-600 mt-2">Buat prompt dengan - Karakter, Lokasi, dan suara Konsisten</p>
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Generator Prompt Veo 3</h1>
+            <p class="text-md sm:text-lg text-gray-600 mt-2">Buat prompt dengan Karakter, Lokasi, dan suara Konsisten</p>
         </header>
 
         <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -128,12 +128,14 @@
                 <!-- Area Preset -->
                 <div class="bg-white p-6 rounded-2xl shadow-lg">
                     <h2 class="text-lg font-semibold text-gray-800 mb-4">Isi Contoh Adegan</h2>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div class="grid grid-cols-3 gap-3">
                         <button onclick="isiContohPreset(1)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 1</button>
                         <button onclick="isiContohPreset(2)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 2</button>
                         <button onclick="isiContohPreset(3)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 3</button>
                         <button onclick="isiContohPreset(4)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 4</button>
                         <button onclick="isiContohPreset(5)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 5</button>
+                        <!-- Tombol Reset Baru -->
+                        <button onclick="resetForm()" class="bg-red-100 text-red-800 font-semibold py-2 px-3 rounded-lg hover:bg-red-200 text-sm">Reset</button>
                     </div>
                 </div>
             </div>
@@ -210,7 +212,6 @@
 
         // --- FUNGSI UTAMA ---
         function generatePrompt() {
-            // ... (Fungsi ini tetap sama, tidak ada perubahan)
             const aksi = document.getElementById("aksi").value;
             const lokasiManual = document.getElementById("lokasi").value;
             const kamera = document.getElementById("kamera").value;
@@ -263,13 +264,11 @@
 
         // --- FUNGSI MODAL ---
         function showDonationModal() {
-            // Tampilkan modal dengan animasi
             donationModal.classList.add('flex');
             setTimeout(() => {
                 modalContent.classList.remove('scale-95', 'opacity-0');
-            }, 10); // Delay kecil untuk memastikan transisi berjalan
+            }, 10); 
 
-            // Atur ulang dan mulai hitung mundur
             let countdown = 5;
             countdownText.textContent = `Tutup dalam ${countdown} detik...`;
             closeModalBtn.disabled = true;
@@ -290,27 +289,23 @@
         }
 
         function closeDonationModal() {
-            // Sembunyikan modal dengan animasi
             modalContent.classList.add('scale-95', 'opacity-0');
             setTimeout(() => {
                 donationModal.classList.remove('flex');
-            }, 300); // Sesuaikan dengan durasi transisi CSS
+            }, 300); 
 
-            clearInterval(countdownInterval); // Hentikan hitung mundur jika modal ditutup lebih awal
+            clearInterval(countdownInterval); 
         }
 
-        // Event listener untuk menutup modal
         closeModalBtn.addEventListener('click', closeDonationModal);
         donationModal.addEventListener('click', (event) => {
-            // Tutup modal jika area luar (overlay) diklik
             if (event.target === donationModal) {
                 closeDonationModal();
             }
         });
 
-        // --- FUNGSI PRESET ---
+        // --- FUNGSI PRESET & RESET ---
         function isiContohPreset(part) {
-            // ... (Fungsi ini tetap sama, tidak ada perubahan)
             const presets = {
                 1: { scene: "Part 1 - Kucing Bangun di Teras Warung", aksi: "kucing meringkuk tidur dan perlahan bangun serta meregangkan tubuhnya", kamera: "kamera bergerak perlahan dari atas ke bawah mengikuti gerakan kucing", suasana: "pagi hari, nuansa hening dan melankolis" },
                 2: { scene: "Part 2 - Kucing Menuruni Tangga Warung", aksi: "kucing berjalan perlahan menuruni tangga warung dengan langkah lambat dan berat", kamera: "kamera mengikuti dari samping saat kucing berjalan menuruni tangga", suasana: "pagi hari, sunyi dan tenang dengan cahaya lembut" },
@@ -323,12 +318,28 @@
                 document.getElementById("scene").value = data.scene;
                 document.getElementById("aksi").value = data.aksi;
                 document.getElementById("kamera").value = data.kamera;
-                document.getElementById("suasana").e.value = data.suasana;
+                document.getElementById("suasana").value = data.suasana;
                 document.getElementById("lokasi").value = lokasiKunci;
                 document.getElementById("audio").value = audioKunci;
                 document.getElementById("gaya").value = "sinematik realistik";
                 generatePrompt();
             }
+        }
+
+        function resetForm() {
+            // Mengosongkan semua field input
+            document.getElementById("scene").value = "";
+            document.getElementById("aksi").value = "";
+            document.getElementById("lokasi").value = "";
+            document.getElementById("kamera").value = "";
+            document.getElementById("suasana").value = "";
+            document.getElementById("audio").value = "";
+            
+            // Mengembalikan gaya visual ke default
+            document.getElementById("gaya").value = "sinematik realistik";
+            
+            // Mengosongkan hasil output
+            outputDiv.innerText = 'Klik "Buat Prompt" atau pilih contoh untuk melihat hasilnya di sini.';
         }
     </script>
 </body>
