@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Prompt Veo 3 - Karakter, Lokasi, dan suara Konsisten</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Menggunakan font Inter sebagai default */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Transisi halus untuk semua elemen */
+        * {
+            transition: all 0.15s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+        
+        <!-- Header Aplikasi -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Generator Prompt Veo 3</h1>
+            <p class="text-md sm:text-lg text-gray-600 mt-2">Buat prompt dengan karakter kucing yang konsisten</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Kolom Input Form -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <form id="prompt-form" onsubmit="event.preventDefault(); generatePrompt();">
+                    
+                    <!-- Grup Input Utama -->
+                    <div class="space-y-5">
+                        <div>
+                            <label for="scene" class="block text-sm font-medium text-gray-700 mb-1">Judul Scene / Bagian</label>
+                            <input type="text" id="scene" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Part 1 - Kucing Bangun">
+                        </div>
+                        <div>
+                            <label for="aksi" class="block text-sm font-medium text-gray-700 mb-1">Aksi Kucing</label>
+                            <textarea id="aksi" rows="3" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Meringkuk tidur, perlahan bangun dan meregangkan tubuh"></textarea>
+                        </div>
+                        <div>
+                            <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-1">Lokasi Adegan</label>
+                            <textarea id="lokasi" rows="3" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Teras warung kayu kecil di pedesaan"></textarea>
+                        </div>
+                         <div>
+                            <label for="kamera" class="block text-sm font-medium text-gray-700 mb-1">Gerakan Kamera</label>
+                            <textarea id="kamera" rows="2" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Kamera bergerak perlahan dari atas ke bawah"></textarea>
+                        </div>
+                        <div>
+                            <label for="suasana" class="block text-sm font-medium text-gray-700 mb-1">Suasana & Waktu</label>
+                            <input type="text" id="suasana" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Pagi hari, nuansa hening dan melankolis">
+                        </div>
+                         <div>
+                            <label for="gaya" class="block text-sm font-medium text-gray-700 mb-1">Gaya Visual</label>
+                            <select id="gaya" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="sinematik realistik">Sinematik Realistik</option>
+                                <option value="sinematik 3D semi-realistis">Sinematik 3D Semi-Realistis</option>
+                                <option value="kartun lembut">Kartun Lembut</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="audio" class="block text-sm font-medium text-gray-700 mb-1">Efek Suara / Narasi (Opsional)</label>
+                            <textarea id="audio" rows="2" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Suara angin lembut, ayam berkokok"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Grup Checkbox -->
+                    <fieldset class="mt-6 border-t pt-6">
+                        <legend class="text-sm font-semibold text-gray-800">Pengaturan Konsistensi</legend>
+                        <div class="space-y-3 mt-3">
+                            <div class="flex items-center">
+                                <input id="karakterTetap" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                                <label for="karakterTetap" class="ml-3 block text-sm text-gray-700">Gunakan deskripsi karakter tetap</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="lokasiTetap" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                                <label for="lokasiTetap" class="ml-3 block text-sm text-gray-700">Gunakan deskripsi lokasi tetap</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="audioTetap" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                                <label for="audioTetap" class="ml-3 block text-sm text-gray-700">Gunakan efek suara tetap</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <!-- Tombol Aksi Utama -->
+                    <div class="mt-8">
+                         <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md">
+                            Buat Prompt
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Kolom Output dan Preset -->
+            <div class="space-y-8">
+                <!-- Area Output -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-3">Hasil Prompt</h2>
+                    <div class="relative">
+                        <div id="output" class="w-full h-48 bg-gray-50 text-gray-700 p-4 border border-gray-200 rounded-lg overflow-y-auto whitespace-pre-wrap text-sm">Klik "Buat Prompt" atau pilih contoh untuk melihat hasilnya di sini.</div>
+                        <button onclick="copyPrompt()" class="absolute top-2 right-2 p-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Salin Prompt">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h6a2 2 0 00-2-2H5z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Area Preset -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Isi Contoh Adegan</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <button onclick="isiContohPreset(1)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 1</button>
+                        <button onclick="isiContohPreset(2)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 2</button>
+                        <button onclick="isiContohPreset(3)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 3</button>
+                        <button onclick="isiContohPreset(4)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 4</button>
+                        <button onclick="isiContohPreset(5)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 5</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notifikasi Toast untuk feedback copy -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white py-2 px-5 rounded-lg shadow-xl opacity-0 transform translate-y-10 transition-all duration-300">
+        Prompt berhasil disalin!
+    </div>
+
+    <script>
+        // --- DATA KUNCI UNTUK KONSISTENSI ---
+        const lokasiKunci = "warung kayu kecil dengan dinding papan cat biru kusam, atap seng berkarat, dua toples kaca besar di meja kayu, dan latar belakang sawah hijau, berada di kampung dataran rendah di Lombok Timur";
+        const karakterKunci = "Seekor kucing abu-abu gendut dengan bulu halus dan mata kuning keemasan, ekspresi sedih dan tenang";
+        const audioKunci = "angin lembut, suara ayam dari kejauhan, dan musik latar sedih";
+
+        // --- ELEMEN DOM ---
+        const outputDiv = document.getElementById("output");
+        const toastDiv = document.getElementById("toast");
+
+        // --- FUNGSI UTAMA ---
+        function generatePrompt() {
+            // Mengambil nilai dari semua input
+            const aksi = document.getElementById("aksi").value;
+            const lokasiManual = document.getElementById("lokasi").value;
+            const kamera = document.getElementById("kamera").value;
+            const suasana = document.getElementById("suasana").value;
+            const gaya = document.getElementById("gaya").value;
+            const audioManual = document.getElementById("audio").value;
+
+            // Mengambil status checkbox
+            const lokasiTetap = document.getElementById("lokasiTetap").checked;
+            const karakterTetap = document.getElementById("karakterTetap").checked;
+            const audioTetap = document.getElementById("audioTetap").checked;
+
+            // Menentukan nilai final berdasarkan checkbox
+            const karakterFinal = karakterTetap ? karakterKunci : "";
+            const lokasiFinal = lokasiTetap ? lokasiKunci : lokasiManual;
+            const audioFinal = audioTetap ? audioKunci : (audioManual || "");
+
+            // Membangun prompt dengan struktur yang lebih baik
+            let promptParts = [];
+            if (karakterFinal) promptParts.push(karakterFinal);
+            if (lokasiFinal) promptParts.push(`berada di ${lokasiFinal}.`);
+            if (suasana) promptParts.push(`Pada ${suasana},`);
+            if (aksi) promptParts.push(`${aksi}.`);
+            if (kamera) promptParts.push(`${kamera}.`);
+            
+            promptParts.push(`Gaya visual ${gaya}.`);
+            promptParts.push(`Suasana tetap konsisten dengan nuansa emosional dan sunyi.`);
+            
+            if (audioFinal) promptParts.push(`Dengan suara latar: ${audioFinal}.`);
+            
+            const prompt = promptParts.join(' ');
+            
+            outputDiv.innerText = prompt;
+        }
+
+        function copyPrompt() {
+            const textToCopy = outputDiv.innerText;
+            // Jangan salin jika isinya adalah teks placeholder awal
+            if (!textToCopy || textToCopy.startsWith('Klik "Buat Prompt"')) return;
+
+            // Buat textarea sementara untuk menyalin teks
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                // Gunakan execCommand sebagai fallback yang andal di iFrame
+                document.execCommand('copy');
+                showToast("Prompt berhasil disalin!");
+            } catch (err) {
+                console.error('Gagal menyalin teks: ', err);
+                showToast("Gagal menyalin prompt.", true);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showToast(message, isError = false) {
+            toastDiv.innerText = message;
+            toastDiv.className = `fixed bottom-5 right-5 text-white py-2 px-5 rounded-lg shadow-xl transition-all duration-300 ${isError ? 'bg-red-600' : 'bg-gray-900'}`;
+            
+            // Tampilkan toast
+            toastDiv.classList.remove('opacity-0', 'translate-y-10');
+            toastDiv.classList.add('opacity-100', 'translate-y-0');
+
+            // Sembunyikan setelah 3 detik
+            setTimeout(() => {
+                toastDiv.classList.remove('opacity-100', 'translate-y-0');
+                toastDiv.classList.add('opacity-0', 'translate-y-10');
+            }, 3000);
+        }
+
+        // --- FUNGSI PRESET ---
+        function isiContohPreset(part) {
+            const presets = {
+                1: {
+                    scene: "Part 1 - Kucing Bangun di Teras Warung",
+                    aksi: "kucing meringkuk tidur dan perlahan bangun serta meregangkan tubuhnya",
+                    kamera: "kamera bergerak perlahan dari atas ke bawah mengikuti gerakan kucing",
+                    suasana: "pagi hari, nuansa hening dan melankolis",
+                },
+                2: {
+                    scene: "Part 2 - Kucing Menuruni Tangga Warung",
+                    aksi: "kucing berjalan perlahan menuruni tangga warung dengan langkah lambat dan berat",
+                    kamera: "kamera mengikuti dari samping saat kucing berjalan menuruni tangga",
+                    suasana: "pagi hari, sunyi dan tenang dengan cahaya lembut",
+                },
+                3: {
+                    scene: "Part 3 - Kucing Duduk Menatap Warung",
+                    aksi: "kucing duduk diam membungkuk sambil menatap ke arah pintu warung yang tertutup",
+                    kamera: "kamera perlahan bergerak dari belakang ke samping kanan memperlihatkan ekspresi wajah kucing",
+                    suasana: "pagi menjelang siang, mendung tipis, suasana tetap sepi",
+                },
+                4: {
+                    scene: "Part 4 - Kucing Menatap Jalan Kosong",
+                    aksi: "kucing duduk menghadap jalan kosong, tidak bergerak, bulunya sedikit tertiup angin",
+                    kamera: "kamera perlahan menjauh dari belakang, meninggalkan kucing sendirian di tengah frame",
+                    suasana: "pagi menjelang siang, cahaya lembut, nuansa emosional dan hening",
+                },
+                5: {
+                    scene: "Part 5 - Kucing Berjalan Menyusuri Jalan Kampung",
+                    aksi: "kucing menunduk, berjalan menyusuri jalan kecil sambil sesekali berhenti menoleh ke belakang",
+                    kamera: "kamera bergerak mengikuti dari belakang, memperlihatkan jejak kaki kecil kucing di tanah basah",
+                    suasana: "pagi menjelang siang yang mendung dan tenang",
+                }
+            };
+
+            const data = presets[part];
+            if (data) {
+                document.getElementById("scene").value = data.scene;
+                document.getElementById("aksi").value = data.aksi;
+                document.getElementById("kamera").value = data.kamera;
+                document.getElementById("suasana").value = data.suasana;
+                
+                // Mengisi data tetap (lokasi dan audio) dan gaya visual default untuk contoh
+                document.getElementById("lokasi").value = lokasiKunci;
+                document.getElementById("audio").value = audioKunci;
+                document.getElementById("gaya").value = "sinematik realistik";
+
+                // Otomatis generate prompt setelah mengisi preset
+                generatePrompt();
+            }
+        }
+    </script>
+</body>
+</html>
