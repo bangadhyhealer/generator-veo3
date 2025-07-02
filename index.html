@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Prompt Veo 3 - Karakter, Lokasi, dan suara Konsisten</title>
+    <title>Generator Prompt Veo 3 - Konsisten</title>
     <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Memuat Google Fonts: Inter -->
@@ -19,6 +19,14 @@
         * {
             transition: all 0.15s ease-in-out;
         }
+        /* Menyembunyikan modal secara default */
+        #donation-modal {
+            display: none;
+        }
+        /* Menampilkan modal saat kelas 'flex' ditambahkan */
+        #donation-modal.flex {
+            display: flex;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -27,7 +35,7 @@
         
         <!-- Header Aplikasi -->
         <header class="text-center mb-8">
-            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Generator Prompt Veo 3</h1>
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Generator Prompt Veo 3 konsisten</h1>
             <p class="text-md sm:text-lg text-gray-600 mt-2">Buat prompt dengan - Karakter, Lokasi, dan suara Konsisten</p>
         </header>
 
@@ -132,9 +140,57 @@
         </main>
     </div>
 
-    <!-- Notifikasi Toast untuk feedback copy -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white py-2 px-5 rounded-lg shadow-xl opacity-0 transform translate-y-10 transition-all duration-300">
-        Prompt berhasil disalin!
+    <!-- Footer dengan Ikon Sosial Media -->
+    <footer class="text-center py-8 mt-8 border-t border-gray-200">
+        <div class="container mx-auto">
+            <p class="text-sm text-gray-600 mb-4">Ikuti Kreator</p>
+            <div class="flex justify-center items-center space-x-6">
+                <!-- Ikon WhatsApp -->
+                <a href="https://wa.me/6281936034285" target="_blank" rel="noopener noreferrer" aria-label="Hubungi di WhatsApp" class="text-gray-500 hover:text-green-500 transition-colors">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.651 4.383 1.89 6.22l-1.21 4.422 4.465-1.165zM12.002 7.74c-.12-.02-.24-.02-.359.02-1.095.16-1.825.8-2.125 1.1-.301.3-.601.7-.801.9-.2.2-.3.3-.5.3-.2 0-.4-.1-.6-.2-.2-.1-1.3-1-1.7-1.7-.4-.7-.7-1.4-.7-2.1 0-.7.3-1.3.5-1.7.2-.4.4-.6.6-.8.2-.2.4-.3.6-.3.2 0 .4.1.6.2.2.1.3.3.4.4.1.1.2.3.3.4.1.1.1.2.1.3s0 .2-.1.3c-.1.1-.1.2-.2.3-.1.1-.2.2-.3.3-.1.1-.1.2-.1.3s.1.2.2.3c.1.1.2.2.3.3.1.1.2.2.3.3.2.2.4.4.6.6.2.2.4.4.6.6.2.2.3.3.4.4.1.1.2.2.3.3.1.1.2.2.3.3s.2.1.3.1c.1 0 .2-.1.3-.1.1-.1.2-.2.3-.3.1-.1.2-.2.3-.3.1-.1.2-.2.2-.3s.1-.2.1-.3c0-.1 0-.2-.1-.3s-.1-.2-.2-.3c-.1-.1-.2-.2-.3-.3-.1-.1-.1-.2-.1-.3s.1-.2.2-.3c.1-.1.2-.2.3-.3.1-.1.2-.2.3-.3.1-.1.2-.2.2-.3s.1-.2.1-.3c0-.1 0-.2-.1-.3z"/>
+                    </svg>
+                </a>
+                <!-- Ikon TikTok -->
+                <a href="https://www.tiktok.com/@bang.adhyhealer" target="_blank" rel="noopener noreferrer" aria-label="Ikuti di TikTok" class="text-gray-500 hover:text-black transition-colors">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.84-.95-6.43-2.8-1.59-1.87-2.18-4.45-1.8-7.13.31-2.14 1.3-4.12 2.6-5.71 1.3-1.59 3.16-2.73 5.02-3.24.03-2.38-.02-4.76.02-7.14.54-.01 1.08-.02 1.62-.02zM12.26 6.13c-1.48.41-2.79 1.32-3.76 2.53-1.23 1.53-1.88 3.48-1.88 5.44 0 2.89 1.82 5.4 4.58 6.08 2.76.68 5.5-1.02 6.18-3.78.34-1.37.14-2.83-.52-4.1-.66-1.26-1.74-2.25-3-2.85-.09-2.03-.05-4.06-.02-6.09-.54.01-1.08.02-1.62.02z"/>
+                    </svg>
+                </a>
+                <!-- Ikon YouTube -->
+                <a href="https://www.youtube.com/@bang.adhyhealer" target="_blank" rel="noopener noreferrer" aria-label="Langganan di YouTube" class="text-gray-500 hover:text-red-600 transition-colors">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M19.805 6.042c.284.78.449 1.612.449 2.484v4.948c0 .872-.165 1.704-.449 2.484-.475 1.307-1.685 2.31-3.173 2.502C15.652 18.5 12 18.5 12 18.5s-3.652 0-4.632-.04c-1.488-.192-2.698-1.195-3.173-2.502C3.91 15.178 3.746 14.346 3.746 13.474V8.526c0-.872.164-1.704.449-2.484C4.67 4.735 5.88 3.732 7.368 3.54c.98-.127 4.632-.04 4.632-.04s3.652-.087 4.632.04c1.488.192 2.698 1.195 3.173 2.502zM9.996 14.933l5.002-3.457-5.002-3.457v6.914z" clip-rule="evenodd"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Modal Donasi -->
+    <div id="donation-modal" class="fixed inset-0 bg-black bg-opacity-60 items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 max-w-md w-full text-center transform transition-all scale-95 opacity-0" id="modal-content">
+            <h3 class="text-xl font-bold text-green-600 mb-2">Prompt Berhasil Disalin!</h3>
+            <p class="text-gray-700 mb-4">Terima kasih telah menggunakan aplikasi ini. Dukung kreator untuk terus berkarya dengan donasi seikhlasnya.</p>
+            
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-left space-y-2">
+                <div>
+                    <p class="font-semibold text-gray-800">Bank BNI:</p>
+                    <p class="text-gray-600 font-mono">1923545440</p>
+                </div>
+                <div>
+                    <p class="font-semibold text-gray-800">E-Wallet DANA:</p>
+                    <p class="text-gray-600 font-mono">087703111465</p>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <button id="close-modal-btn" class="w-full bg-gray-400 text-white font-bold py-3 px-4 rounded-lg cursor-not-allowed" disabled>
+                    <span id="countdown-text">Tutup dalam 5 detik...</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -145,11 +201,16 @@
 
         // --- ELEMEN DOM ---
         const outputDiv = document.getElementById("output");
-        const toastDiv = document.getElementById("toast");
+        const donationModal = document.getElementById("donation-modal");
+        const modalContent = document.getElementById("modal-content");
+        const closeModalBtn = document.getElementById("close-modal-btn");
+        const countdownText = document.getElementById("countdown-text");
+
+        let countdownInterval; // Variabel untuk menyimpan interval hitung mundur
 
         // --- FUNGSI UTAMA ---
         function generatePrompt() {
-            // Mengambil nilai dari semua input
+            // ... (Fungsi ini tetap sama, tidak ada perubahan)
             const aksi = document.getElementById("aksi").value;
             const lokasiManual = document.getElementById("lokasi").value;
             const kamera = document.getElementById("kamera").value;
@@ -157,17 +218,14 @@
             const gaya = document.getElementById("gaya").value;
             const audioManual = document.getElementById("audio").value;
 
-            // Mengambil status checkbox
             const lokasiTetap = document.getElementById("lokasiTetap").checked;
             const karakterTetap = document.getElementById("karakterTetap").checked;
             const audioTetap = document.getElementById("audioTetap").checked;
 
-            // Menentukan nilai final berdasarkan checkbox
             const karakterFinal = karakterTetap ? karakterKunci : "";
             const lokasiFinal = lokasiTetap ? lokasiKunci : lokasiManual;
             const audioFinal = audioTetap ? audioKunci : (audioManual || "");
 
-            // Membangun prompt dengan struktur yang lebih baik
             let promptParts = [];
             if (karakterFinal) promptParts.push(karakterFinal);
             if (lokasiFinal) promptParts.push(`berada di ${lokasiFinal}.`);
@@ -187,88 +245,88 @@
 
         function copyPrompt() {
             const textToCopy = outputDiv.innerText;
-            // Jangan salin jika isinya adalah teks placeholder awal
             if (!textToCopy || textToCopy.startsWith('Klik "Buat Prompt"')) return;
 
-            // Buat textarea sementara untuk menyalin teks
             const textArea = document.createElement("textarea");
             textArea.value = textToCopy;
             document.body.appendChild(textArea);
             textArea.select();
             try {
-                // Gunakan execCommand sebagai fallback yang andal di iFrame
                 document.execCommand('copy');
-                showToast("Prompt berhasil disalin!");
+                showDonationModal(); // Tampilkan modal donasi setelah berhasil menyalin
             } catch (err) {
                 console.error('Gagal menyalin teks: ', err);
-                showToast("Gagal menyalin prompt.", true);
+                alert("Gagal menyalin prompt."); // Fallback jika modal gagal
             }
             document.body.removeChild(textArea);
         }
 
-        function showToast(message, isError = false) {
-            toastDiv.innerText = message;
-            toastDiv.className = `fixed bottom-5 right-5 text-white py-2 px-5 rounded-lg shadow-xl transition-all duration-300 ${isError ? 'bg-red-600' : 'bg-gray-900'}`;
-            
-            // Tampilkan toast
-            toastDiv.classList.remove('opacity-0', 'translate-y-10');
-            toastDiv.classList.add('opacity-100', 'translate-y-0');
-
-            // Sembunyikan setelah 3 detik
+        // --- FUNGSI MODAL ---
+        function showDonationModal() {
+            // Tampilkan modal dengan animasi
+            donationModal.classList.add('flex');
             setTimeout(() => {
-                toastDiv.classList.remove('opacity-100', 'translate-y-0');
-                toastDiv.classList.add('opacity-0', 'translate-y-10');
-            }, 3000);
+                modalContent.classList.remove('scale-95', 'opacity-0');
+            }, 10); // Delay kecil untuk memastikan transisi berjalan
+
+            // Atur ulang dan mulai hitung mundur
+            let countdown = 5;
+            countdownText.textContent = `Tutup dalam ${countdown} detik...`;
+            closeModalBtn.disabled = true;
+            closeModalBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+            closeModalBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+
+            countdownInterval = setInterval(() => {
+                countdown--;
+                countdownText.textContent = `Tutup dalam ${countdown} detik...`;
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownText.textContent = 'Tutup';
+                    closeModalBtn.disabled = false;
+                    closeModalBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                    closeModalBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                }
+            }, 1000);
         }
+
+        function closeDonationModal() {
+            // Sembunyikan modal dengan animasi
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                donationModal.classList.remove('flex');
+            }, 300); // Sesuaikan dengan durasi transisi CSS
+
+            clearInterval(countdownInterval); // Hentikan hitung mundur jika modal ditutup lebih awal
+        }
+
+        // Event listener untuk menutup modal
+        closeModalBtn.addEventListener('click', closeDonationModal);
+        donationModal.addEventListener('click', (event) => {
+            // Tutup modal jika area luar (overlay) diklik
+            if (event.target === donationModal) {
+                closeDonationModal();
+            }
+        });
 
         // --- FUNGSI PRESET ---
         function isiContohPreset(part) {
+            // ... (Fungsi ini tetap sama, tidak ada perubahan)
             const presets = {
-                1: {
-                    scene: "Part 1 - Kucing Bangun di Teras Warung",
-                    aksi: "kucing meringkuk tidur dan perlahan bangun serta meregangkan tubuhnya",
-                    kamera: "kamera bergerak perlahan dari atas ke bawah mengikuti gerakan kucing",
-                    suasana: "pagi hari, nuansa hening dan melankolis",
-                },
-                2: {
-                    scene: "Part 2 - Kucing Menuruni Tangga Warung",
-                    aksi: "kucing berjalan perlahan menuruni tangga warung dengan langkah lambat dan berat",
-                    kamera: "kamera mengikuti dari samping saat kucing berjalan menuruni tangga",
-                    suasana: "pagi hari, sunyi dan tenang dengan cahaya lembut",
-                },
-                3: {
-                    scene: "Part 3 - Kucing Duduk Menatap Warung",
-                    aksi: "kucing duduk diam membungkuk sambil menatap ke arah pintu warung yang tertutup",
-                    kamera: "kamera perlahan bergerak dari belakang ke samping kanan memperlihatkan ekspresi wajah kucing",
-                    suasana: "pagi menjelang siang, mendung tipis, suasana tetap sepi",
-                },
-                4: {
-                    scene: "Part 4 - Kucing Menatap Jalan Kosong",
-                    aksi: "kucing duduk menghadap jalan kosong, tidak bergerak, bulunya sedikit tertiup angin",
-                    kamera: "kamera perlahan menjauh dari belakang, meninggalkan kucing sendirian di tengah frame",
-                    suasana: "pagi menjelang siang, cahaya lembut, nuansa emosional dan hening",
-                },
-                5: {
-                    scene: "Part 5 - Kucing Berjalan Menyusuri Jalan Kampung",
-                    aksi: "kucing menunduk, berjalan menyusuri jalan kecil sambil sesekali berhenti menoleh ke belakang",
-                    kamera: "kamera bergerak mengikuti dari belakang, memperlihatkan jejak kaki kecil kucing di tanah basah",
-                    suasana: "pagi menjelang siang yang mendung dan tenang",
-                }
+                1: { scene: "Part 1 - Kucing Bangun di Teras Warung", aksi: "kucing meringkuk tidur dan perlahan bangun serta meregangkan tubuhnya", kamera: "kamera bergerak perlahan dari atas ke bawah mengikuti gerakan kucing", suasana: "pagi hari, nuansa hening dan melankolis" },
+                2: { scene: "Part 2 - Kucing Menuruni Tangga Warung", aksi: "kucing berjalan perlahan menuruni tangga warung dengan langkah lambat dan berat", kamera: "kamera mengikuti dari samping saat kucing berjalan menuruni tangga", suasana: "pagi hari, sunyi dan tenang dengan cahaya lembut" },
+                3: { scene: "Part 3 - Kucing Duduk Menatap Warung", aksi: "kucing duduk diam membungkuk sambil menatap ke arah pintu warung yang tertutup", kamera: "kamera perlahan bergerak dari belakang ke samping kanan memperlihatkan ekspresi wajah kucing", suasana: "pagi menjelang siang, mendung tipis, suasana tetap sepi" },
+                4: { scene: "Part 4 - Kucing Menatap Jalan Kosong", aksi: "kucing duduk menghadap jalan kosong, tidak bergerak, bulunya sedikit tertiup angin", kamera: "kamera perlahan menjauh dari belakang, meninggalkan kucing sendirian di tengah frame", suasana: "pagi menjelang siang, cahaya lembut, nuansa emosional dan hening" },
+                5: { scene: "Part 5 - Kucing Berjalan Menyusuri Jalan Kampung", aksi: "kucing menunduk, berjalan menyusuri jalan kecil sambil sesekali berhenti menoleh ke belakang", kamera: "kamera bergerak mengikuti dari belakang, memperlihatkan jejak kaki kecil kucing di tanah basah", suasana: "pagi menjelang siang yang mendung dan tenang" }
             };
-
             const data = presets[part];
             if (data) {
                 document.getElementById("scene").value = data.scene;
                 document.getElementById("aksi").value = data.aksi;
                 document.getElementById("kamera").value = data.kamera;
-                document.getElementById("suasana").value = data.suasana;
-                
-                // Mengisi data tetap (lokasi dan audio) dan gaya visual default untuk contoh
+                document.getElementById("suasana").e.value = data.suasana;
                 document.getElementById("lokasi").value = lokasiKunci;
                 document.getElementById("audio").value = audioKunci;
                 document.getElementById("gaya").value = "sinematik realistik";
-
-                // Otomatis generate prompt setelah mengisi preset
                 generatePrompt();
             }
         }
