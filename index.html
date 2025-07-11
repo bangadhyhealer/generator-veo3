@@ -341,6 +341,34 @@
             // Mengosongkan hasil output
             outputDiv.innerText = 'Klik "Buat Prompt" atau pilih contoh untuk melihat hasilnya di sini.';
         }
+        <!-- ✅ POPUP Iklan -->
+<div id="popup-overlay" style="
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;">
+  <div id="popup-box" style="
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 300px;">
+    <h2 class="text-lg font-bold mb-2">💰 Klik dulu untuk akses gratis</h2>
+    <p class="text-sm text-gray-600">Untuk melanjutkan ke tool, klik tombol di bawah</p>
+    <a href="https://www.profitableratecpm.com/b2ikw28c6?key=f341bccbe07a2f02f1975dc2edaa90dd"
+       target="_blank"
+       onclick="closePopup()"
+       style="display:inline-block; margin-top:10px; background:#6a5acd; color:white; padding:10px 20px; border-radius:8px; text-decoration:none;">
+       LANJUTKAN
+    </a>
+  </div>
+</div>
+        function closePopup() {
+  document.getElementById("popup-overlay").style.display = "none";
+        }
     </script>
 </body>
 </html>
