@@ -1,175 +1,379 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Generator Prompt Veo 3 - Karakter, Lokasi, dan Suara Konsisten</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    * {
-      transition: all 0.15s ease-in-out;
-    }
-    #donation-modal {
-      display: none;
-    }
-    #donation-modal.flex {
-      display: flex;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Prompt Veo 3 - Karakter, Lokasi, dan suara Konsisten</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Menggunakan font Inter sebagai default */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Transisi halus untuk semua elemen */
+        * {
+            transition: all 0.15s ease-in-out;
+        }
+        /* Menyembunyikan modal secara default */
+        #donation-modal {
+            display: none;
+        }
+        /* Menampilkan modal saat kelas 'flex' ditambahkan */
+        #donation-modal.flex {
+            display: flex;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
-    <header class="text-center mb-8">
-      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Generator Prompt Veo 3</h1>
-      <p class="text-md sm:text-lg text-gray-600 mt-2">Buat prompt dengan Karakter, Lokasi, dan Suara Konsisten</p>
-    </header>
 
-    <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="bg-white p-6 rounded-2xl shadow-lg">
-        <form id="prompt-form" onsubmit="event.preventDefault(); generatePrompt();">
-          <div class="space-y-5">
-            <div>
-              <label for="scene" class="block text-sm font-medium text-gray-700 mb-1">Judul Scene / Bagian</label>
-              <input type="text" id="scene" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3" />
-            </div>
-            <div>
-              <label for="aksi" class="block text-sm font-medium text-gray-700 mb-1">Aksi Kucing</label>
-              <textarea id="aksi" rows="3" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3"></textarea>
-            </div>
-            <div>
-              <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-1">Lokasi Adegan</label>
-              <textarea id="lokasi" rows="3" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3"></textarea>
-            </div>
-            <div>
-              <label for="kamera" class="block text-sm font-medium text-gray-700 mb-1">Gerakan Kamera</label>
-              <textarea id="kamera" rows="2" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3"></textarea>
-            </div>
-            <div>
-              <label for="suasana" class="block text-sm font-medium text-gray-700 mb-1">Suasana & Waktu</label>
-              <input type="text" id="suasana" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3"/>
-            </div>
-            <div>
-              <label for="gaya" class="block text-sm font-medium text-gray-700 mb-1">Gaya Visual</label>
-              <select id="gaya" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3">
-                <option value="sinematik realistik">Sinematik Realistik</option>
-                <option value="sinematik 3D semi-realistis">Sinematik 3D Semi-Realistis</option>
-                <option value="kartun lembut">Kartun Lembut</option>
-              </select>
-            </div>
-            <div>
-              <label for="audio" class="block text-sm font-medium text-gray-700 mb-1">Efek Suara / Narasi (Opsional)</label>
-              <textarea id="audio" rows="2" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3"></textarea>
-            </div>
-          </div>
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+        
+        <!-- Header Aplikasi -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Generator Prompt Veo 3</h1>
+            <p class="text-md sm:text-lg text-gray-600 mt-2">Buat prompt dengan Karakter, Lokasi, dan suara Konsisten</p>
+        </header>
 
-          <fieldset class="mt-6 border-t pt-6">
-            <legend class="text-sm font-semibold text-gray-800">Pengaturan Konsistensi</legend>
-            <div class="space-y-3 mt-3">
-              <div class="flex items-center">
-                <input id="karakterTetap" type="checkbox" checked class="h-4 w-4 text-blue-600" />
-                <label for="karakterTetap" class="ml-3 text-sm text-gray-700">Gunakan deskripsi karakter tetap</label>
-              </div>
-              <div class="flex items-center">
-                <input id="lokasiTetap" type="checkbox" checked class="h-4 w-4 text-blue-600" />
-                <label for="lokasiTetap" class="ml-3 text-sm text-gray-700">Gunakan deskripsi lokasi tetap</label>
-              </div>
-              <div class="flex items-center">
-                <input id="audioTetap" type="checkbox" checked class="h-4 w-4 text-blue-600" />
-                <label for="audioTetap" class="ml-3 text-sm text-gray-700">Gunakan efek suara tetap</label>
-              </div>
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Kolom Input Form -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <form id="prompt-form" onsubmit="event.preventDefault(); generatePrompt();">
+                    
+                    <!-- Grup Input Utama -->
+                    <div class="space-y-5">
+                        <div>
+                            <label for="scene" class="block text-sm font-medium text-gray-700 mb-1">Judul Scene / Bagian</label>
+                            <input type="text" id="scene" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Part 1 - Kucing Bangun">
+                        </div>
+                        <div>
+                            <label for="aksi" class="block text-sm font-medium text-gray-700 mb-1">Aksi Kucing</label>
+                            <textarea id="aksi" rows="3" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Meringkuk tidur, perlahan bangun dan meregangkan tubuh"></textarea>
+                        </div>
+                        <div>
+                            <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-1">Lokasi Adegan</label>
+                            <textarea id="lokasi" rows="3" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Teras warung kayu kecil di pedesaan"></textarea>
+                        </div>
+                         <div>
+                            <label for="kamera" class="block text-sm font-medium text-gray-700 mb-1">Gerakan Kamera</label>
+                            <textarea id="kamera" rows="2" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Kamera bergerak perlahan dari atas ke bawah"></textarea>
+                        </div>
+                        <div>
+                            <label for="suasana" class="block text-sm font-medium text-gray-700 mb-1">Suasana & Waktu</label>
+                            <input type="text" id="suasana" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Pagi hari, nuansa hening dan melankolis">
+                        </div>
+                         <div>
+                            <label for="gaya" class="block text-sm font-medium text-gray-700 mb-1">Gaya Visual</label>
+                            <select id="gaya" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="sinematik realistik">Sinematik Realistik</option>
+                                <option value="sinematik 3D semi-realistis">Sinematik 3D Semi-Realistis</option>
+                                <option value="kartun lembut">Kartun Lembut</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="audio" class="block text-sm font-medium text-gray-700 mb-1">Efek Suara / Narasi (Opsional)</label>
+                            <textarea id="audio" rows="2" class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cth: Suara angin lembut, ayam berkokok"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Grup Checkbox -->
+                    <fieldset class="mt-6 border-t pt-6">
+                        <legend class="text-sm font-semibold text-gray-800">Pengaturan Konsistensi</legend>
+                        <div class="space-y-3 mt-3">
+                            <div class="flex items-center">
+                                <input id="karakterTetap" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                                <label for="karakterTetap" class="ml-3 block text-sm text-gray-700">Gunakan deskripsi karakter tetap</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="lokasiTetap" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                                <label for="lokasiTetap" class="ml-3 block text-sm text-gray-700">Gunakan deskripsi lokasi tetap</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="audioTetap" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                                <label for="audioTetap" class="ml-3 block text-sm text-gray-700">Gunakan efek suara tetap</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <!-- Tombol Aksi Utama -->
+                    <div class="mt-8">
+                         <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md">
+                            Buat Prompt
+                        </button>
+                    </div>
+                </form>
             </div>
-          </fieldset>
 
-          <div class="mt-8">
-            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700">
-              Buat Prompt
-            </button>
-          </div>
-        </form>
-      </div>
+            <!-- Kolom Output dan Preset -->
+            <div class="space-y-8">
+                <!-- Area Output -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-3">Hasil Prompt</h2>
+                    <div class="relative">
+                        <div id="output" class="w-full h-48 bg-gray-50 text-gray-700 p-4 border border-gray-200 rounded-lg overflow-y-auto whitespace-pre-wrap text-sm">Klik "Buat Prompt" atau pilih contoh untuk melihat hasilnya di sini.</div>
+                        <button onclick="copyPrompt()" class="absolute top-2 right-2 p-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Salin Prompt">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h6a2 2 0 00-2-2H5z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
 
-      <div class="space-y-8">
-        <div class="bg-white p-6 rounded-2xl shadow-lg">
-          <h2 class="text-lg font-semibold text-gray-800 mb-3">Hasil Prompt</h2>
-          <div class="relative">
-            <div id="output" class="w-full h-48 bg-gray-50 text-gray-700 p-4 border rounded-lg overflow-y-auto whitespace-pre-wrap text-sm">
-              Klik "Buat Prompt" atau pilih contoh untuk melihat hasilnya di sini.
+                <!-- Area Preset -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Isi Contoh Adegan</h2>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button onclick="isiContohPreset(1)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 1</button>
+                        <button onclick="isiContohPreset(2)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 2</button>
+                        <button onclick="isiContohPreset(3)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 3</button>
+                        <button onclick="isiContohPreset(4)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 4</button>
+                        <button onclick="isiContohPreset(5)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 5</button>
+                        <!-- Tombol Reset Baru -->
+                        <button onclick="resetForm()" class="bg-red-100 text-red-800 font-semibold py-2 px-3 rounded-lg hover:bg-red-200 text-sm">Reset</button>
+                    </div>
+                </div>
             </div>
-            <button onclick="copyPrompt()" class="absolute top-2 right-2 p-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300">
-              Salin
-            </button>
-          </div>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-lg">
-          <h2 class="text-lg font-semibold text-gray-800 mb-4">Isi Contoh Adegan</h2>
-          <div class="grid grid-cols-3 gap-3">
-            <button onclick="isiContohPreset(1)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 1</button>
-            <button onclick="isiContohPreset(2)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 2</button>
-            <button onclick="isiContohPreset(3)" class="bg-green-100 text-green-800 font-semibold py-2 px-3 rounded-lg hover:bg-green-200 text-sm">Contoh 3</button>
-            <button onclick="resetForm()" class="bg-red-100 text-red-800 font-semibold py-2 px-3 rounded-lg hover:bg-red-200 text-sm">Reset</button>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-
-  <!-- ✅ POPUP Iklan Adsterra -->
-  <div id="popup-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:9999;">
-    <div style="background:white;padding:20px;border-radius:12px;text-align:center;max-width:320px;">
-      <h2 class="text-lg font-bold mb-2">💰 Akses Gratis Tool Ini</h2>
-      <p class="text-sm text-gray-600">Klik tombol di bawah untuk membuka akses penuh</p>
-      <a href="#" onclick="handleAdClick()" 
-         style="display:inline-block; margin-top:12px; background:#6a5acd; color:white; padding:10px 20px; border-radius:8px; text-decoration:none;">
-         🔓 LANJUTKAN
-      </a>
+        </main>
     </div>
+
+    <!-- Footer dengan Ikon Sosial Media -->
+    <footer class="text-center py-8 mt-8 border-t border-gray-200">
+        <div class="container mx-auto">
+            <p class="text-sm text-gray-600 mb-4">Ikuti Kreator</p>
+            <div class="flex justify-center items-center space-x-6">
+<!-- Ikon WhatsApp Baru -->
+<a href="https://wa.me/6281936034285" target="_blank" rel="noopener noreferrer" aria-label="Hubungi di WhatsApp" class="text-gray-500 hover:text-green-500 transition-colors">
+    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.767.966-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.789-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.447-.521.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.67-.51-.173-.007-.372-.009-.571-.009-.198 0-.521.075-.793.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.1 3.204 5.077 4.366.709.306 1.262.489 1.694.624.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.288.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.617h-.001a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374A9.86 9.86 0 011.67 11.997C1.669 6.476 6.477 1.669 12 1.669c2.654 0 5.151 1.037 7.033 2.919a9.868 9.868 0 012.918 7.032c-.001 5.522-4.809 10.33-10.33 10.33m8.413-18.744C17.132 1.515 14.638.489 12 .489 5.787.489.489 5.787.489 11.997c0 2.137.561 4.217 1.623 6.043l-1.713 6.25a1 1 0 00.974 1.261c.082 0 .166-.01.25-.03l6.262-1.646a11.93 11.93 0 005.115 1.19h.005c6.213 0 11.511-5.298 11.511-11.511 0-3.074-1.197-5.963-3.366-8.132z"/>
+    </svg>
+</a>
+<!-- Ikon TikTok Baru -->
+<a href="https://www.tiktok.com/@bang.adhyhealer" target="_blank" rel="noopener noreferrer" aria-label="Ikuti di TikTok" class="text-gray-500 hover:text-black transition-colors">
+    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12.225 2.003h3.262c.036.347.09.689.162 1.029.209 1.014.785 1.915 1.624 2.517.825.589 1.827.874 2.827.787v3.196c-.724.07-1.451-.012-2.134-.242a6.555 6.555 0 01-1.349-.627v6.922c0 2.369-1.418 4.202-3.62 4.202-2.096 0-3.668-1.679-3.668-3.79 0-2.087 1.57-3.782 3.668-3.782.146 0 .29.012.435.025v3.165c-.144-.038-.292-.061-.438-.061-.623 0-1.13.532-1.13 1.186 0 .657.507 1.19 1.13 1.19.605 0 1.09-.5 1.13-1.137V2.003zm-2.22 17.374c-3.088 0-5.605-2.59-5.605-5.782 0-3.187 2.517-5.78 5.605-5.78 3.094 0 5.606 2.593 5.606 5.78 0 3.192-2.512 5.782-5.606 5.782z"/>
+    </svg>
+</a>
+                <!-- Ikon YouTube -->
+                <a href="https://www.youtube.com/@bang.adhyhealer" target="_blank" rel="noopener noreferrer" aria-label="Langganan di YouTube" class="text-gray-500 hover:text-red-600 transition-colors">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+  <path d="M23.498 6.186a2.972 2.972 0 00-2.088-2.102C19.12 3.5 12 3.5 12 3.5s-7.12 0-9.41.584A2.972 2.972 0 00.502 6.186C0 8.403 0 12 0 12s0 3.596.502 5.814a2.972 2.972 0 002.088 2.102C4.88 20.5 12 20.5 12 20.5s7.12 0 9.41-.584a2.972 2.972 0 002.088-2.102C24 15.596 24 12 24 12s0-3.596-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
+</svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Modal Donasi -->
+    <div id="donation-modal" class="fixed inset-0 bg-black bg-opacity-60 items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 max-w-md w-full text-center transform transition-all scale-95 opacity-0" id="modal-content">
+            <h3 class="text-xl font-bold text-green-600 mb-2">Prompt Berhasil Disalin!</h3>
+            <p class="text-gray-700 mb-4">Terima kasih telah menggunakan aplikasi ini. Dukung kreator untuk terus berkarya dengan donasi seikhlasnya.</p>
+            
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-left space-y-2">
+                <div>
+                    <p class="font-semibold text-gray-800">Bank BNI:</p>
+                    <p class="text-gray-600 font-mono">1923545440</p>
+                </div>
+                <div>
+                    <p class="font-semibold text-gray-800">E-Wallet DANA:</p>
+                    <p class="text-gray-600 font-mono">087703111465</p>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <button id="close-modal-btn" class="w-full bg-gray-400 text-white font-bold py-3 px-4 rounded-lg cursor-not-allowed" disabled>
+                    <span id="countdown-text">Tutup dalam 5 detik...</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA KUNCI UNTUK KONSISTENSI ---
+        const lokasiKunci = "warung kayu kecil dengan dinding papan cat biru kusam, atap seng berkarat, dua toples kaca besar di meja kayu, dan latar belakang sawah hijau, berada di kampung dataran rendah di Lombok Timur";
+        const karakterKunci = "Seekor kucing abu-abu gendut dengan bulu halus dan mata kuning keemasan, ekspresi sedih dan tenang";
+        const audioKunci = "angin lembut, suara ayam dari kejauhan, dan musik latar sedih";
+
+        // --- ELEMEN DOM ---
+        const outputDiv = document.getElementById("output");
+        const donationModal = document.getElementById("donation-modal");
+        const modalContent = document.getElementById("modal-content");
+        const closeModalBtn = document.getElementById("close-modal-btn");
+        const countdownText = document.getElementById("countdown-text");
+
+        let countdownInterval; // Variabel untuk menyimpan interval hitung mundur
+
+        // --- FUNGSI UTAMA ---
+        function generatePrompt() {
+            const aksi = document.getElementById("aksi").value;
+            const lokasiManual = document.getElementById("lokasi").value;
+            const kamera = document.getElementById("kamera").value;
+            const suasana = document.getElementById("suasana").value;
+            const gaya = document.getElementById("gaya").value;
+            const audioManual = document.getElementById("audio").value;
+
+            const lokasiTetap = document.getElementById("lokasiTetap").checked;
+            const karakterTetap = document.getElementById("karakterTetap").checked;
+            const audioTetap = document.getElementById("audioTetap").checked;
+
+            const karakterFinal = karakterTetap ? karakterKunci : "";
+            const lokasiFinal = lokasiTetap ? lokasiKunci : lokasiManual;
+            const audioFinal = audioTetap ? audioKunci : (audioManual || "");
+
+            let promptParts = [];
+            if (karakterFinal) promptParts.push(karakterFinal);
+            if (lokasiFinal) promptParts.push(`berada di ${lokasiFinal}.`);
+            if (suasana) promptParts.push(`Pada ${suasana},`);
+            if (aksi) promptParts.push(`${aksi}.`);
+            if (kamera) promptParts.push(`${kamera}.`);
+            
+            promptParts.push(`Gaya visual ${gaya}.`);
+            promptParts.push(`Suasana tetap konsisten dengan nuansa emosional dan sunyi.`);
+            
+            if (audioFinal) promptParts.push(`Dengan suara latar: ${audioFinal}.`);
+            
+            const prompt = promptParts.join(' ');
+            
+            outputDiv.innerText = prompt;
+        }
+
+        function copyPrompt() {
+            const textToCopy = outputDiv.innerText;
+            if (!textToCopy || textToCopy.startsWith('Klik "Buat Prompt"')) return;
+
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showDonationModal(); // Tampilkan modal donasi setelah berhasil menyalin
+            } catch (err) {
+                console.error('Gagal menyalin teks: ', err);
+                alert("Gagal menyalin prompt."); // Fallback jika modal gagal
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // --- FUNGSI MODAL ---
+        function showDonationModal() {
+            donationModal.classList.add('flex');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+            }, 10); 
+
+            let countdown = 5;
+            countdownText.textContent = `Tutup dalam ${countdown} detik...`;
+            closeModalBtn.disabled = true;
+            closeModalBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+            closeModalBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+
+            countdownInterval = setInterval(() => {
+                countdown--;
+                countdownText.textContent = `Tutup dalam ${countdown} detik...`;
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownText.textContent = 'Tutup';
+                    closeModalBtn.disabled = false;
+                    closeModalBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                    closeModalBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                }
+            }, 1000);
+        }
+
+        function closeDonationModal() {
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                donationModal.classList.remove('flex');
+            }, 300); 
+
+            clearInterval(countdownInterval); 
+        }
+
+        closeModalBtn.addEventListener('click', closeDonationModal);
+        donationModal.addEventListener('click', (event) => {
+            if (event.target === donationModal) {
+                closeDonationModal();
+            }
+        });
+
+        // --- FUNGSI PRESET & RESET ---
+        function isiContohPreset(part) {
+            const presets = {
+                1: { scene: "Part 1 - Kucing Bangun di Teras Warung", aksi: "kucing meringkuk tidur dan perlahan bangun serta meregangkan tubuhnya", kamera: "kamera bergerak perlahan dari atas ke bawah mengikuti gerakan kucing", suasana: "pagi hari, nuansa hening dan melankolis" },
+                2: { scene: "Part 2 - Kucing Menuruni Tangga Warung", aksi: "kucing berjalan perlahan menuruni tangga warung dengan langkah lambat dan berat", kamera: "kamera mengikuti dari samping saat kucing berjalan menuruni tangga", suasana: "pagi hari, sunyi dan tenang dengan cahaya lembut" },
+                3: { scene: "Part 3 - Kucing Duduk Menatap Warung", aksi: "kucing duduk diam membungkuk sambil menatap ke arah pintu warung yang tertutup", kamera: "kamera perlahan bergerak dari belakang ke samping kanan memperlihatkan ekspresi wajah kucing", suasana: "pagi menjelang siang, mendung tipis, suasana tetap sepi" },
+                4: { scene: "Part 4 - Kucing Menatap Jalan Kosong", aksi: "kucing duduk menghadap jalan kosong, tidak bergerak, bulunya sedikit tertiup angin", kamera: "kamera perlahan menjauh dari belakang, meninggalkan kucing sendirian di tengah frame", suasana: "pagi menjelang siang, cahaya lembut, nuansa emosional dan hening" },
+                5: { scene: "Part 5 - Kucing Berjalan Menyusuri Jalan Kampung", aksi: "kucing menunduk, berjalan menyusuri jalan kecil sambil sesekali berhenti menoleh ke belakang", kamera: "kamera bergerak mengikuti dari belakang, memperlihatkan jejak kaki kecil kucing di tanah basah", suasana: "pagi menjelang siang yang mendung dan tenang" }
+            };
+            const data = presets[part];
+            if (data) {
+                document.getElementById("scene").value = data.scene;
+                document.getElementById("aksi").value = data.aksi;
+                document.getElementById("kamera").value = data.kamera;
+                document.getElementById("suasana").value = data.suasana;
+                document.getElementById("lokasi").value = lokasiKunci;
+                document.getElementById("audio").value = audioKunci;
+                document.getElementById("gaya").value = "sinematik realistik";
+                generatePrompt();
+            }
+        }
+
+        function resetForm() {
+            // Mengosongkan semua field input
+            document.getElementById("scene").value = "";
+            document.getElementById("aksi").value = "";
+            document.getElementById("lokasi").value = "";
+            document.getElementById("kamera").value = "";
+            document.getElementById("suasana").value = "";
+            document.getElementById("audio").value = "";
+            
+            // Mengembalikan gaya visual ke default
+            document.getElementById("gaya").value = "sinematik realistik";
+            
+            // Mengosongkan hasil output
+            outputDiv.innerText = 'Klik "Buat Prompt" atau pilih contoh untuk melihat hasilnya di sini.';
+        }
+    </script>
+    <!-- Tambahkan ini DI ATAS penutup </body> -->
+<!-- ✅ POPUP Iklan -->
+<div id="popup-overlay" style="
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;">
+  <div id="popup-box" style="
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 300px;">
+    <h2 class="text-lg font-bold mb-2">💰 Klik dulu untuk akses gratis</h2>
+    <p class="text-sm text-gray-600">Untuk melanjutkan ke tool, klik tombol di bawah</p>
+    <a href="https://www.profitableratecpm.com/b2ikw28c6?key=f341bccbe07a2f02f1975dc2edaa90dd"
+       target="_blank"
+       onclick="closePopup()"
+       style="display:inline-block; margin-top:10px; background:#6a5acd; color:white; padding:10px 20px; border-radius:8px; text-decoration:none;">
+       LANJUTKAN
+    </a>
   </div>
+</div>
 
-  <!-- ✅ Script Anti Skip -->
-  <script>
-    const adLink = "https://www.profitableratecpm.com/b2ikw28c6?key=f341bccbe07a2f02f1975dc2edaa90dd";
-
-    document.addEventListener("DOMContentLoaded", () => {
-      if (!localStorage.getItem("ad_clicked")) {
-        document.getElementById("popup-overlay").style.display = "flex";
-        document.body.style.overflow = "hidden";
-      }
-    });
-
-    function handleAdClick() {
-      localStorage.setItem("ad_clicked", "yes");
-      window.open(adLink, "_blank");
-      document.getElementById("popup-overlay").style.display = "none";
-      document.body.style.overflow = "auto";
-    }
-
-    // Tambahan fungsi lainnya...
-    const lokasiKunci = "warung kayu kecil dengan dinding papan cat biru kusam...";
-    const karakterKunci = "Seekor kucing abu-abu gendut dengan bulu halus...";
-    const audioKunci = "angin lembut, suara ayam dari kejauhan...";
-
-    function generatePrompt() {
-      // logika seperti sebelumnya
-    }
-
-    function copyPrompt() {
-      // logika copy prompt
-    }
-
-    function isiContohPreset(n) {
-      // preset contoh 1–3
-    }
-
-    function resetForm() {
-      // reset form
-    }
-  </script>
+<!-- ✅ SCRIPT untuk menutup popup -->
+<script>
+  function closePopup() {
+    document.getElementById("popup-overlay").style.display = "none";
+  }
+</script>
 </body>
 </html>
